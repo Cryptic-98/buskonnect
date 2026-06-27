@@ -1,6 +1,3 @@
-/* ============================================================
-   Base reset & tokens
-   ============================================================ */
 *,
 *::before,
 *::after {
@@ -16,7 +13,6 @@
   --radius: 10px;
   --gap: 18px;
 
-  /* Fluid type scale (412 px → 1440 px) */
   --fs-app-title: clamp(18px, 4vw, 24px);
   --fs-label-lg: clamp(24px, 6vw, 40px);
   --fs-next-stop: clamp(32px, 9vw, 56px);
@@ -31,14 +27,10 @@ body {
   min-height: 100dvh;
 }
 
-/* ============================================================
-   Header
-   ============================================================ */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* horizontal padding mirrors .content so they feel aligned */
   padding: clamp(10px, 2vw, 18px) clamp(16px, 5vw, 80px);
   background-color: var(--color-bg);
   position: sticky;
@@ -72,32 +64,20 @@ body {
   cursor: pointer;
 }
 
-/* ============================================================
-   Page content wrapper
-   Horizontal padding is the sole width constraint — no max-width.
-   Cards inside stretch to fill whatever space remains.
-   ============================================================ */
 .content {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: var(--gap);
   width: 100%;
-  /* inline padding grows with the viewport, giving cards breathing room */
   padding-inline: clamp(16px, 5vw, 80px);
-  /* block padding: top gap + bottom clearance for fixed nav */
   padding-block-start: var(--gap);
   padding-block-end: calc(var(--gap) + 60px);
 }
 
-/* ============================================================
-   Route-location card
-   ============================================================ */
 .route-location {
-  /* No width — stretches via align-items: stretch on .content */
   border: 2px solid var(--color-border);
   border-radius: var(--radius);
-  /* vertical padding grows slightly on large screens */
   padding: clamp(14px, 2vw, 24px) clamp(12px, 2vw, 20px);
   display: flex;
   flex-direction: column;
@@ -106,17 +86,11 @@ body {
   background: var(--color-surface);
 }
 
-/* Origin / Destination rows */
 .origin,
 .destination {
-  /* width: 100% is implicit — block element inside a flex-column */
   border: 2px solid var(--color-border);
   border-radius: var(--radius);
-  /*
-    Vertical padding drives height: the card grows with content + padding.
-    clamp keeps it compact on phones and spacious on desktop.
-  */
-  padding: clamp(10px, 2.5vw, 28px) clamp(12px, 2vw, 24px);
+  padding: clamp(22px, 5vw, 48px) clamp(12px, 2vw, 24px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -140,7 +114,6 @@ body {
   flex-shrink: 0;
 }
 
-/* "View route" link row */
 .view-route {
   text-align: end;
   font-size: var(--fs-view-route);
@@ -148,11 +121,9 @@ body {
   letter-spacing: -0.03em;
   cursor: pointer;
   user-select: none;
-  /* small top/bottom padding adds tap-friendly height without a fixed size */
   padding-block: clamp(4px, 1vw, 10px);
 }
 
-/* "Next stop" banner */
 .next-stop {
   display: flex;
   align-items: center;
@@ -165,9 +136,6 @@ body {
   padding-block: clamp(6px, 1.5vw, 14px);
 }
 
-/* ============================================================
-   Departure-time card
-   ============================================================ */
 .departure-time {
   border: 2px solid var(--color-border);
   border-radius: var(--radius);
@@ -179,7 +147,6 @@ body {
   font-size: var(--fs-dep-title);
   font-weight: 700;
   text-align: center;
-  /* vertical padding sets the row height — no fixed height */
   padding: clamp(14px, 2.5vw, 28px) clamp(12px, 2vw, 24px)
     clamp(10px, 2vw, 20px);
   letter-spacing: -0.02em;
@@ -200,13 +167,10 @@ body {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  /* vertical padding replaces the fixed height from the original */
   padding-block: clamp(4px, 1vw, 10px);
+  text-align: center;
 }
 
-/* ============================================================
-   Bottom navigation — fixed to viewport bottom
-   ============================================================ */
 .nav {
   position: fixed;
   bottom: 0;
@@ -218,7 +182,6 @@ body {
   background: var(--color-bg);
   border-top: 1px solid rgba(0, 0, 0, 0.15);
   z-index: 100;
-  /* padding drives nav height rather than a fixed height */
   padding-block: clamp(10px, 2vw, 16px);
 }
 
@@ -236,9 +199,6 @@ body {
   height: clamp(24px, 5vw, 30px);
 }
 
-/* ============================================================
-   Accessibility
-   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
