@@ -1,0 +1,247 @@
+/* ─────────────────────────────────────────────
+   Base & Reset
+   ───────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Design was built for 412 px wide Android Compact.
+     All layout values scale proportionally via clamp()
+     between 320 px (floor) and 412 px (native) up to
+     a comfortable 480 px ceiling on wider screens.     */
+  --page-max: 480px;
+  --gutter: clamp(10px, 2.9vw, 14px);
+
+  --radius-card: 10px;
+  --border: 1.5px solid #000;
+
+  --font: "Inter", sans-serif;
+  --tracking-tight: -0.03em;
+
+  /* Type scale – fluid between 320 and 412 px */
+  --fs-logo: clamp(17px, 5.1vw, 21px);
+  --fs-label: clamp(16px, 4.9vw, 20px);
+  --fs-stop: clamp(34px, 10.7vw, 44px);
+  --fs-origin: clamp(26px, 8vw, 33px);
+  --fs-departure: clamp(32px, 9.7vw, 40px);
+  --fs-heading: clamp(26px, 7.8vw, 32px);
+
+  --icon-logo: clamp(38px, 11.4vw, 47px);
+  --icon-profile: clamp(22px, 6.8vw, 28px);
+  --icon-card: clamp(36px, 10.9vw, 45px);
+  --icon-nav: clamp(24px, 7.3vw, 30px);
+}
+
+body {
+  font-family: var(--font);
+  background: #fff;
+  color: #000;
+  /* Contain layout to the original phone-width column,
+     centered on larger screens without changing look.  */
+  max-width: var(--page-max);
+  margin-inline: auto;
+}
+
+/* ─────────────────────────────────────────────
+   Header
+   ───────────────────────────────────────────── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--gutter);
+  background-color: #f8f8f8;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 3.6vw, 15px);
+}
+
+.logo h1 {
+  font-size: var(--fs-logo);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1;
+}
+
+#logo {
+  width: var(--icon-logo);
+  height: var(--icon-logo);
+  flex-shrink: 0;
+}
+
+#profile {
+  width: var(--icon-profile);
+  height: var(--icon-profile);
+  flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────────
+   Content wrapper
+   ───────────────────────────────────────────── */
+.content {
+  margin-top: clamp(14px, 4.4vw, 18px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(14px, 4.4vw, 18px);
+  padding-inline: var(--gutter);
+  padding-bottom: clamp(14px, 4.4vw, 18px);
+}
+
+/* ─────────────────────────────────────────────
+   Route / location card
+   ───────────────────────────────────────────── */
+.route-location {
+  width: 100%;
+  border: var(--border);
+  border-radius: var(--radius-card);
+  padding: clamp(10px, 3.4vw, 14px) clamp(8px, 2.9vw, 12px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 3.6vw, 15px);
+  align-items: center;
+}
+
+/* Origin / Destination rows */
+.origin,
+.destination {
+  width: 100%;
+  min-height: clamp(76px, 23.3vw, 96px);
+  border: var(--border);
+  border-radius: var(--radius-card);
+  padding-inline: clamp(8px, 2.9vw, 12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.origin p,
+.destination p {
+  font-size: var(--fs-origin);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.1;
+  /* Prevent text from overflowing into the icon */
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.origin img,
+.destination img {
+  width: var(--icon-card);
+  height: var(--icon-card);
+  flex-shrink: 0;
+}
+
+/* "View route" link */
+.view-route {
+  width: 100%;
+  text-align: end;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1;
+}
+
+/* "Next stop" line */
+.next-stop {
+  width: 100%;
+  display: flex;
+  gap: clamp(3px, 1.2vw, 5px);
+  font-size: var(--fs-stop);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  justify-content: center;
+  align-items: baseline;
+  /* Guard against very narrow viewports */
+  flex-wrap: wrap;
+}
+
+/* ─────────────────────────────────────────────
+   Departure-time card
+   ───────────────────────────────────────────── */
+.departure-time {
+  width: 100%;
+  border: var(--border);
+  border-radius: var(--radius-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden; /* keeps border-radius crisp around the <hr> */
+}
+
+.departure-time h3 {
+  font-size: var(--fs-heading);
+  font-weight: 700;
+  text-align: center;
+  padding: clamp(10px, 3.6vw, 15px) 0 clamp(8px, 2.4vw, 10px);
+  width: 100%;
+  letter-spacing: var(--tracking-tight);
+}
+
+.departure-time hr {
+  width: 100%;
+  border: none;
+  height: 2px;
+  background-color: #000;
+}
+
+/* The list of times sits inside .departure-times (note plural) */
+.departure-times {
+  width: 100%;
+  padding-inline: clamp(8px, 2.9vw, 12px);
+}
+
+.departure-times p {
+  font-size: var(--fs-departure);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: clamp(44px, 13.6vw, 56px); /* consistent row height */
+}
+
+/* ─────────────────────────────────────────────
+   Bottom nav
+   ───────────────────────────────────────────── */
+.nav {
+  display: flex;
+  width: 100%;
+  height: clamp(52px, 15.9vw, 60px);
+  /* Distribute tabs evenly across full width */
+  justify-content: space-around;
+}
+
+.nav div {
+  /* Let tabs share available space rather than use fixed 103 px */
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav div img {
+  width: var(--icon-nav);
+  height: var(--icon-nav);
+}
+
+/* ─────────────────────────────────────────────
+   Reduced-motion respect
+   ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

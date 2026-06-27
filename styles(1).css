@@ -1,0 +1,247 @@
+/* ============================================================
+   Base reset & tokens
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg: #f8f8f8;
+  --color-border: #000;
+  --color-surface: #fff;
+  --radius: 10px;
+  --gap: 18px;
+
+  /* Fluid type scale (412 px → 1440 px) */
+  --fs-app-title: clamp(18px, 4vw, 24px);
+  --fs-label-lg: clamp(24px, 6vw, 40px);
+  --fs-next-stop: clamp(32px, 9vw, 56px);
+  --fs-departure: clamp(28px, 7vw, 44px);
+  --fs-view-route: clamp(16px, 3.5vw, 20px);
+  --fs-dep-title: clamp(22px, 5vw, 32px);
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--color-bg);
+  min-height: 100dvh;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* horizontal padding mirrors .content so they feel aligned */
+  padding: clamp(10px, 2vw, 18px) clamp(16px, 5vw, 80px);
+  background-color: var(--color-bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo h1 {
+  font-size: var(--fs-app-title);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+#logo {
+  width: clamp(36px, 8vw, 47px);
+  height: clamp(36px, 8vw, 47px);
+  flex-shrink: 0;
+}
+
+#profile {
+  width: clamp(24px, 5vw, 28px);
+  height: clamp(24px, 5vw, 28px);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* ============================================================
+   Page content wrapper
+   Horizontal padding is the sole width constraint — no max-width.
+   Cards inside stretch to fill whatever space remains.
+   ============================================================ */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gap);
+  width: 100%;
+  /* inline padding grows with the viewport, giving cards breathing room */
+  padding-inline: clamp(16px, 5vw, 80px);
+  /* block padding: top gap + bottom clearance for fixed nav */
+  padding-block-start: var(--gap);
+  padding-block-end: calc(var(--gap) + 60px);
+}
+
+/* ============================================================
+   Route-location card
+   ============================================================ */
+.route-location {
+  /* No width — stretches via align-items: stretch on .content */
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  /* vertical padding grows slightly on large screens */
+  padding: clamp(14px, 2vw, 24px) clamp(12px, 2vw, 20px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+  background: var(--color-surface);
+}
+
+/* Origin / Destination rows */
+.origin,
+.destination {
+  /* width: 100% is implicit — block element inside a flex-column */
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  /*
+    Vertical padding drives height: the card grows with content + padding.
+    clamp keeps it compact on phones and spacious on desktop.
+  */
+  padding: clamp(10px, 2.5vw, 28px) clamp(12px, 2vw, 24px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: var(--color-surface);
+}
+
+.origin p,
+.destination p {
+  font-size: var(--fs-label-lg);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  word-break: break-word;
+}
+
+.origin img,
+.destination img {
+  width: clamp(32px, 8vw, 45px);
+  height: clamp(32px, 8vw, 45px);
+  flex-shrink: 0;
+}
+
+/* "View route" link row */
+.view-route {
+  text-align: end;
+  font-size: var(--fs-view-route);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  cursor: pointer;
+  user-select: none;
+  /* small top/bottom padding adds tap-friendly height without a fixed size */
+  padding-block: clamp(4px, 1vw, 10px);
+}
+
+/* "Next stop" banner */
+.next-stop {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-next-stop);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  justify-content: center;
+  line-height: 1;
+  padding-block: clamp(6px, 1.5vw, 14px);
+}
+
+/* ============================================================
+   Departure-time card
+   ============================================================ */
+.departure-time {
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.departure-time h3 {
+  font-size: var(--fs-dep-title);
+  font-weight: 700;
+  text-align: center;
+  /* vertical padding sets the row height — no fixed height */
+  padding: clamp(14px, 2.5vw, 28px) clamp(12px, 2vw, 24px)
+    clamp(10px, 2vw, 20px);
+  letter-spacing: -0.02em;
+}
+
+.departure-time hr {
+  border: none;
+  border-top: 2px solid var(--color-border);
+  margin: 0;
+}
+
+.departure-times {
+  padding: clamp(8px, 1.5vw, 16px) clamp(12px, 2vw, 24px) clamp(12px, 2vw, 20px);
+}
+
+.departure-times p {
+  font-size: var(--fs-departure);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  /* vertical padding replaces the fixed height from the original */
+  padding-block: clamp(4px, 1vw, 10px);
+}
+
+/* ============================================================
+   Bottom navigation — fixed to viewport bottom
+   ============================================================ */
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: var(--color-bg);
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  /* padding drives nav height rather than a fixed height */
+  padding-block: clamp(10px, 2vw, 16px);
+}
+
+.nav div {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding-block: 4px;
+}
+
+.nav div img {
+  width: clamp(24px, 5vw, 30px);
+  height: clamp(24px, 5vw, 30px);
+}
+
+/* ============================================================
+   Accessibility
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
